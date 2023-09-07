@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/index-3.html  22 Nov 2019 09:55:42 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FocusFrames</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+     <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/plugins/nouislider/nouislider.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.js"></script>
+
+  
+  <style>
+    .zoom-image-container {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .zoom-image {
+        transition: transform 0.3s ease;
+        max-width: 100%;
+        display: block;
+    }
+
+    .zoom-circle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        border: 2px solid #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transform: scale(1);
+        transition: transform 0.3s ease;
+    }
+</style>
+</head>
+
+
+
+<body>
+    <div class="page-wrapper">
+        <%- include('../layouts/userHeader.ejs') %>	
+
+
+		<main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
+                    <ol class="breadcrumb">
+                        <!-- <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Products</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Centered</li> -->
+                    </ol>
+
+                    <nav class="product-pager ml-auto" aria-label="Product">
+                        <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
+                            <i class="icon-angle-left"></i>
+                            <span>Prev</span>
+                        </a>
+
+                        <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
+                            <span>Next</span>
+                            <i class="icon-angle-right"></i>
+                        </a>
+                    </nav><!-- End .pager-nav -->
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                    <div class="product-details-top mb-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                      <figure class="product-main-image">
+                                        <div class="zoom-image-container">
+                                            <img class="img-fluid zoom-image"  id="product-zoom" src="../product-images/<%= product.images[0]%>" alt="product image">
+                                        </div>
+                                        <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                          <i class="icon-arrows"></i>
+                                        </a>
+                                      </figure><!-- End .product-main-image -->
+                                  
+                                      <div id="product-zoom-gallery" class="product-image-gallery">
+                                        <a class="product-gallery-item active" href="#" data-image="<%= product.images[0]%>">
+                                            <img src="../product-images/<%= product.images[0]%>" alt="product side">
+                                          </a>
+                                    
+                                          <a class="product-gallery-item" href="#" data-image="<%= product.images[1]%>">
+                                            <img src="../product-images/<%= product.images[1]%>" alt="product cross">
+                                          </a>
+                                    
+                                          <a class="product-gallery-item" href="#" data-image="<%= product.images[2]%>">
+                                            <img src="../product-images/<%= product.images[2]%>" alt="product with model">
+                                          </a>
+                                      </div><!-- End .product-image-gallery -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .product-gallery -->
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6">
+                                <div class="product-details product-details-centered">
+                                    <h1 class="product-title"><%=product.name%></h1><!-- End .product-title -->
+
+                                    <div class="ratings-container">
+                                        
+                                        <a class="ratings-text" href="#" id="review-link"><%=product.category.name.toUpperCase()%></a>
+                                    </div><!-- End .rating-container -->
+
+                                    <div class="product-price">
+                                        <%=product.price%>
+                                    </div><!-- End .product-price -->
+
+                                    <% if (product.stock <= 0) { %>
+                                        <li><a href="#"><span>Availability</span><span style="color: red; font-weight: bolder;">: Out of Stock</span></a></li>
+                                      <% } else if (product.stock <= 5) { %>
+                                        <li><a href="#"><span>Availability</span>: In Stock</a></li>
+                                        <span style="color: red;">Hurry,Only <%= product.stock %>   items Remaining</span>
+                                      <% } else { %>
+                                        <li><a href="#"><span>Availability</span>: In Stock</a></li>
+                                      <% } %>
+
+                                    <div class="product-content">
+                                        <p><%=product.description%></p>
+                                    </div><!-- End .product-content -->
+
+                                   
+
+                                        
+
+                                    
+
+                                    <div class="product-details-action">
+                                        <div class="details-action-col">
+                                            <div class="product-details-quantity">
+                                                <!-- <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required> -->
+                                            </div><!-- End .product-details-quantity -->
+
+                                            <button class="btn-product btn-cart" onclick="addtocart('<%=product._id%>')">Add to cart</button>
+                                        </div><!-- End .details-action-col -->
+
+                                        <div class="details-action-wrapper">
+                                            <a href="#" class="btn-product btn-wishlist" onclick="addToWishList('<%=product._id%>')" ><span>Add to Wishlist</span></a>
+                                            <!-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a> -->
+                                        </div><!-- End .details-action-wrapper -->
+                                    </div><!-- End .product-details-action -->
+
+                                    <div class="product-details-footer">
+                                        <div class="product-cat">
+                                            <span>Category:</span>
+                                            <a href="#">Cameras</a>
+                                            
+                                        </div><!-- End .product-cat -->
+
+                                        <div class="social-icons social-icons-sm">
+                                            <span class="social-label">Share:</span>
+                                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                        </div>
+                                    </div><!-- End .product-details-footer -->
+                                </div><!-- End .product-details -->
+                            </div><!-- End .col-md-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .product-details-top -->
+
+                    <div class="product-details-tab">
+                        <ul class="nav nav-pills justify-content-center" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-info-link" data-toggle="tab" href="#product-info-tab" role="tab" aria-controls="product-info-tab" aria-selected="false">Additional information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-shipping-link" data-toggle="tab" href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab" aria-selected="false">Shipping & Returns</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews (2)</a>
+                            </li> -->
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                                <div class="product-desc-content">
+                                    <h3>Product Information</h3>
+                                    <p>The EF 24-105mm f/4L IS II USM is a L-series zoom covering wide-angle to short-telephoto focal lengths and featuring a constant f/4 maximum aperture. The version II of this popular lens sports a redeveloped optical design, which includes four aspherical elements to significantly reduce distortion and spherical aberrations throughout the zoom range for great sharpness and accurate subject rendering. Individual elements feature an Air Sphere Coating, too, to suppress flare and ghosting for greater contrast and color accuracy in harsh lighting conditions.</p>
+                                    <ul>
+                                        <li>A built-in GPS module allows you to geotag imagery in-camera as well as auto time sync with the Universal Time Code via satellites. This module is compatible with American GPS, Russian GLONASS, and Japanese quasi-zenith Michibiki satellites for a wide coverage of support. </li>
+                                        <li>Built-in Wi-Fi and NFC connectivity enable wireless sharing, control, and image transfer with a compatible smart device as well as the CS100 Connect Station.</li>
+                                        <li>Bluetooth permits linking a smartphone or tablet for quick image sharing between devices as well as remote control capabilities.</li>
+                                    </ul>
+
+                                    <p> Covering a range of perspectives from wide-angle to telephoto-length, this lens is a highly versatile tool for use in everyday situations for both still image and movie recording. Its design integrates a NANO USM motor with both ring-type USM and STM technologies that provides near-silent focusing abilities with smooth and precise control for both stills and video. Additionally, the optical image stabilization system helps to minimize the appearance of camera shake by up to four shutter speed steps in order to benefit working in low-light conditions and with greater zoom magnifications. One aspherical lens element and one UD (ultra-low dispersion) element are also incorporated into the lens construction to help reduce chromatic aberrations throughout the zoom range and an optimized lens coating has been applied, too, in order to lessen lens flare and ghosting for higher contrast, clearer imagery. For advanced video, this lens will accept the optional PZ-E1 Power Zoom Adapter. </p>
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
+                                <div class="product-desc-content">
+                                    <h3>In the box</h3>
+                                   
+
+                                    
+                                    <ul>
+                                        <li>LP-E6N Lithium-Ion Battery Pack (7.2V, 1865mAh)</li>
+                                        <li>LC-E6 Charger for LP-E6 Battery Pack</li>
+                                        <li>Eyecup Eg</li>
+                                        <li>RF-3 Body Cap</li>
+                                        <li> IFC-150U II USB 3.1 Gen 1 Interface Cable </li>
+                                        <li> Wide Camera Strap</li>
+                                        <li>Battery Cover</li>
+                                    </ul>
+
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
+                                <div class="product-desc-content">
+                                    <h3>Delivery & returns</h3>
+                                    <p>We deliver to over 100 countries around the world. For full details of the delivery options we offer, please view our <a href="#">Delivery information</a><br>
+                                    We hope you’ll love every purchase, but if you ever need to return an item you can do so within a month of receipt. For full details of how to make a return, please view our <a href="#">Returns information</a></p>
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                           
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .product-details-tab -->
+
+                    <h2 class="title text-center mb-4 d-flex">You May Also Like</h2><!-- End .title text-center -->
+                    
+                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                        data-owl-options='{
+                            "nav": false, 
+                            "dots": true,
+                            "margin": 20,
+                            "loop": false,
+                            "responsive": {
+                                "0": {
+                                    "items":1
+                                },
+                                "480": {
+                                    "items":2
+                                },
+                                "768": {
+                                    "items":3
+                                },
+                                "992": {
+                                    "items":4
+                                },
+                                "1200": {
+                                    "items":4,
+                                    "nav": true,
+                                    "dots": false
+                                }
+                            }
+                        }'>
+                        <!-- Loop through the products array and display each product -->
+                        <% for (let product of products) { %>
+                            <div class="product product-<%= product._id %> text-center">
+                                <figure class="product-media">
+                                    <% if (product.isNew) { %>
+                                        <span class="product-label label-new">New</span>
+                                    <% } %>
+                                    <a href="product.html">
+                                        <img src="../product-images/<%= product.images[0]%>" alt="Product image" class="product-image">
+                                    </a>
+                        
+                                    <div class="product-action-vertical">
+                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable" onclick="addToWishList('<%=product._id%>')" ><span>add to wishlist</span></a>
+                                        <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                        <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                                    </div><!-- End .product-action-vertical -->
+                                    
+                                    <!-- <div class="product-action-vertical">
+                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable" onclick="addToWishList('<%=product._id%>')"><span>add to wishlist</span></a>
+                                        
+                                    </div> -->
+
+                                    <div class="product-action">
+                                        <a href="#" class="btn-product btn-cart" onclick="addtocart('<%=product._id%>')"><span>add to cart</span></a>
+                                    </div><!-- End .product-action -->
+                                </figure><!-- End .product-media -->
+                        
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#">Women</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="product.html"><%= product.name %></a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        $<%= product.price.toFixed(2) %>
+                                    </div><!-- End .product-price -->
+                                    <div class="ratings-container">
+                                        
+                                        <span class="ratings-text">( <%= product.reviews %> Reviews )</span>
+                                    </div><!-- End .rating-container -->
+                        
+                                    <!-- Add product colors as dots here (you can use a similar loop as above) -->
+                        
+                                </div><!-- End .product-body -->
+                            </div><!-- End .product -->
+                        <% } %>
+
+
+                        
+
+                        
+ 
+                       
+                        
+                    </div><!-- End .owl-carousel -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+    </div>
+    <%- include('../layouts/userFooter.ejs') %>	
+
+    <script>
+		function addtocart(proId) {
+		  $.ajax({
+			url: '/addToCart/' + proId,
+			method: 'POST',
+			success: (response) => {
+			  if (response.status==true) {
+				Swal.fire({
+				  title: 'Added To Cart',
+				  text: 'Your Product has been added to Cart',
+				  icon: 'success',
+				  timer: 5000
+				})
+				
+			  }else if(response.status=='outOfStock'){
+				Swal.fire({
+				  title: 'Out of Stock',
+				  text: 'Product Out Of Stock',
+				  icon: 'error',
+				  timer: 5000
+				})
+			  }else{
+                window.location.href = '/login';
+              }
+			}
+		  })
+		}
+	</script>
+
+
+
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery.hoverIntent.min.js"></script>
+<script src="assets/js/jquery.waypoints.min.js"></script>
+<script src="assets/js/superfish.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/bootstrap-input-spinner.js"></script>
+<script src="assets/js/jquery.elevateZoom.min.js"></script>
+<script src="assets/js/bootstrap-input-spinner.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- Main JS File -->
+<script src="assets/js/main.js"></script>
+
+<script>
+	function addToWishList(proId) {
+		event.preventDefault();
+    $.ajax({
+      url: '/add-to-wishlist',
+      method: 'POST',
+      data: {
+        proId: proId
+      },
+      success: (response) => {
+        if (response.status===true) {
+          // Product added to Wishlist successfully
+		  Swal.fire({
+			position: 'centre',
+			icon: 'success',
+			title: 'Product added to wish list',
+			showConfirmButton: false,
+			timer: 1500
+			})
+          
+
+        } else if(response.status===false) {
+          // Error adding product to Wishlist
+          Swal.fire({
+            icon: 'error',
+            title: 'Product already exist in Wishlist',
+            timer: 2000
+          });
+
+        }else{
+			 window.location.href = '/login';
+			}
+      }
+    })
+  }
+
+
+
+</script>
+
+</body>
+</html>
+
+<script>
+    document.querySelector('form').addEventListener('submit', (event) => {
+      const searchQuery = document.getElementById('search_input').value;
+      const encodedSearchQuery = encodeURIComponent(searchQuery);
+      const url = `/product?search=${encodedSearchQuery}`;image
+      window.location.href = url;
+      event.preventDefault();
+    });
+  </script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Handle click event for each thumbnail
+    $('.product-gallery-item').on('click', function (e) {
+      e.preventDefault();
+
+      // Get the data-image attribute value of the clicked thumbnail
+      var newImageSrc = $(this).data('image');
+
+      // Update the src attribute of the main image with the clicked thumbnail's data-image value
+      $('#product-zoom').attr('src', '../product-images/' + newImageSrc);
+    });
+  });
+</script>
+
+
+<script>
+    // Function to handle the zoom effect
+    function handleZoom(event) {
+        const imageContainer = event.currentTarget;
+        const image = imageContainer.querySelector('.zoom-image');
+        const zoomCircle = imageContainer.querySelector('.zoom-circle');
+
+        // Get the position of the mouse pointer relative to the image container
+        const rect = imageContainer.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const offsetY = event.clientY - rect.top;
+
+        // Calculate the position of the zoom circle and set its size
+        const circleSize = 100; // Adjust this value to change the size of the zoom circle
+        const circleX = offsetX - circleSize / 2;
+        const circleY = offsetY - circleSize / 2;
+
+        // Apply the zoom effect by changing the scale of the image and zoom circle
+        image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+        image.style.transform = 'scale(2.2)';
+
+        zoomCircle.style.width = circleSize + 'px';
+        zoomCircle.style.height = circleSize + 'px';
+        zoomCircle.style.left = circleX + 'px';
+        zoomCircle.style.top = circleY + 'px';
+        zoomCircle.style.transform = 'scale(2)'; // Adjust this value to change the zoom circle's zoom level
+    }
+
+    // Function to reset the zoom effect
+    function resetZoom(event) {
+        const imageContainer = event.currentTarget;
+        const image = imageContainer.querySelector('.zoom-image');
+        const zoomCircle = imageContainer.querySelector('.zoom-circle');
+
+        image.style.transform = 'scale(1)';
+        zoomCircle.style.transform = 'scale(1)';
+    }
+
+    // Attach event listeners to the image container
+    const imageContainers = document.querySelectorAll('.zoom-image-container');
+    imageContainers.forEach(container => {
+        container.addEventListener('mousemove', handleZoom);
+        container.addEventListener('mouseleave', resetZoom);
+    });
+</script>
+
+
+		

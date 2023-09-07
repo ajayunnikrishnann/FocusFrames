@@ -1,0 +1,677 @@
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <!-- <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li> -->
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="cart">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9"> 
+                        <%if(cart.length!=0){%>
+                        <table class="table table-cart table-mobile">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                 
+                                <% cart.forEach(function(cart,index) {%>
+                                <tr>
+                                    <td class="product-col">
+                                        <div class="product">
+                                            <figure class="product-media">
+                                                <a href="#/productPage?id=<%=cart.carted._id %>">
+                                                    <img src="../product-images/<%= cart.carted.images[0]%>" alt="Product image">
+                                                </a>
+                                            </figure>
+
+                                            <h3 class="product-title">
+                                                <a href="/productPage?id=<%=cart.carted._id %>"><%=cart.carted.name%></a>
+                                            </h3><!-- End .product-title -->
+                                        </div><!-- End .product -->
+                                    </td>
+                                    <td class="price-col"><%=cart.carted.price%></td>
+                                    <td >
+
+                                          
+                                        <div class="input-group input-spinner" style="width: 65px">
+                                            <div class="input-group-prepend">
+                                                <button style="min-width: 20px" class="btn btn-decrement btn-spinner" type="button" onclick="changeQuantity('<%= cart._id %>','<%=cart.item%>','<%=user._id%>','<%=index%>', -1)">
+                                                    <i class="icon-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="number" name="qty" id="qty-val-<%= cart.item %>" maxlength="12" style="text-align: center; width: 10px;" class="form-control" required="" value="<%= cart.quantity %>">
+                                            <div class="input-group-append">
+                                                <button style="min-width: 26px" class="btn btn-increment btn-spinner" type="button" onclick="changeQuantity('<%= cart._id %>','<%=cart.item%>','<%=user._id%>','<%=index%>', 1)">
+                                                    <i class="icon-plus"></i>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        
+                                        
+                                    </td>
+                                    <td class="total-col">₹<%= cart.total %></td>
+                                    <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+                                </tr>
+                                <% }) %>
+
+                        
+
+                                
+                            </tbody>
+                        </table><!-- End .table table-wishlist -->
+                        <%}else{%>
+                            <center>
+                                <div class="col-md-lg-5">
+                                    <div class="typography">
+                                        <h1>There are no items in cart</h1>
+                                    </div>
+                                </div>
+                            </center>
+                        <% } %>
+                        <div class="cart-bottom">
+                            <div class="cart-discount">
+                                <form action="#">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" required placeholder="coupon code">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
+                                        </div><!-- .End .input-group-append -->
+                                    </div><!-- End .input-group -->
+                                </form>
+                            </div><!-- End .cart-discount -->
+
+                           
+                        </div><!-- End .cart-bottom -->
+                    </div><!-- End .col-lg-9 -->
+                    <aside class="col-lg-3">
+                        <div class="summary summary-cart">
+                            <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+                            <table class="table table-summary">
+                                <tbody>
+                                    <tr class="summary-subtotal">
+                                        <td>Subtotal:</td>
+                                        <td>₹<%=cartTotal%></td>
+                                    </tr><!-- End .summary-subtotal -->
+                                    <tr class="summary-shipping">
+                                        <td>Shipping:</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+
+                                    <tr class="summary-shipping-row">
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+                                                <label class="custom-control-label" for="free-shipping">Free Shipping</label>
+                                            </div><!-- End .custom-control -->
+                                        </td>
+                                        <td>$0.00</td>
+                                    </tr><!-- End .summary-shipping-row -->
+
+                                    <tr class="summary-shipping-row">
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
+                                                <label class="custom-control-label" for="standart-shipping">Standart:</label>
+                                            </div><!-- End .custom-control -->
+                                        </td>
+                                        <td>$10.00</td>
+                                    </tr><!-- End .summary-shipping-row -->
+
+                                    <tr class="summary-shipping-row">
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="express-shipping" name="shipping" class="custom-control-input">
+                                                <label class="custom-control-label" for="express-shipping">Express:</label>
+                                            </div><!-- End .custom-control -->
+                                        </td>
+                                        <td>$20.00</td>
+                                    </tr><!-- End .summary-shipping-row -->
+
+                                    
+                                    <tr class="summary-total">
+                                        <td>Total:</td>
+                                        <td>$160.00</td>
+                                    </tr><!-- End .summary-total -->
+                                </tbody>
+                            </table><!-- End .table table-summary -->
+
+                            <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                        </div><!-- End .summary -->
+
+                        <a href="category.html" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .cart -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="/public/images/icons/favicon.png"/>
+        <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet">
+    
+        <style>
+            body {
+            background-color: #f8f9fa;
+            }
+            .btn-back {
+                margin: 1rem;
+                font-size: 1rem;
+                color: #ffffff; /* White text */
+                background-color: #007bff; /* Blue background */
+                padding: 5px 10px;
+                border-radius: 5px;
+                text-decoration: none; /* No underline */
+            }
+            .card {
+                border-radius: 1rem;
+                border: none;
+                box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+                max-width: 800px;
+                margin: auto;
+            }
+            .card .card-body {
+                padding: 3rem 4rem;
+            }
+            .btn-primary {
+                background-color:#007bff;
+            }
+            .form-label {
+                font-weight: 500;
+                color: #495057;
+            }
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+            .narrow-column {
+                width: 20px;
+            }
+            .card {
+                border-radius: 1rem;
+                border: none;
+                box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+                margin: auto;
+            }
+            .card .card-body {
+                padding: 3rem 4rem;
+            }
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            .content-main {
+                max-width: 800px;
+                margin: auto;
+            }
+            /* Define the color of the labels and inputs here */
+            .form-label {
+                color: #007bff; /* blue color */
+            }
+            .form-control {
+                color: #495057;
+            }
+        </style>
+    
+        <title>Fashion Palace</title>
+    </head>
+<body>
+
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <%- include("./includes/sidebar.ejs") %>
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+          <!--  Header Start -->
+          <%- include("./includes/header.ejs") %>
+          <!--  Header End -->
+          <div class="container-fluid">
+            <!--  Row 1 -->
+            
+            <div class="row">
+              
+              <div class="col-lg-12 d-flex align-items-stretch">
+                <div class="card w-100">
+                  <div class="card-body p-4">
+                                    <!-- Main content -->
+                                    <main class="container py-5 d-flex flex-column align-items-center justify-content-center">
+                                        <h1 class="mb-5 text-center text-secondary">Update Product</h1>
+                                
+                                        <section class="content-main">
+                                            <form action="/admin/updateProduct" method="post" enctype="multipart/form-data" class="card shadow-lg mx-auto">
+                                              <div class="card-body">
+                                                <!-- Product title -->
+                                                <div class="form-group mb-4">
+                                                    <div><label for="name" class="form-label">Product title</label></div>
+                                                    <div><input type="text" id="name" name="name" class="form-control" value="<%= product.name %>" placeholder="Type here" required></div>
+                                                </div>
+                                
+                                                <!-- Description -->
+                                                <div class="form-group mb-4">
+                                                    <div><label for="description" class="form-label">Description</label></div>
+                                                    <div><textarea id="description" name="description" class="form-control" rows="4" placeholder="Type here" required><%= product.description %></textarea></div>
+                                                </div>
+                                
+                                                <!-- Category -->
+                                                <div class="form-group mb-4">
+                                                    <div><label for="category" class="form-label">Category</label></div>
+                                                    <div>
+                                                        <select id="category" name="category" class="form-select">
+                                                            <% category.forEach(function(category) { %>
+                                                                <option value="<%= category._id %>" <%= product.category && product.category.toString() === category._id.toString() ? 'selected' : '' %>><%= category.name %></option>
+                                                            <% }); %>
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                
+                                                <!-- Cost -->
+                                                <div class="form-group mb-4">
+                                                    <div><label for="price" class="form-label">Cost in INR</label></div>
+                                                    <div><input type="number" id="price" name="price" class="form-control" value="<%= product.price %>" placeholder="00.0" required></div>
+                                                </div>
+                                
+                                                <div class="form-group mb-4">
+                                                    <div><label class="form-label">Stock</label></div>
+                                                    <div><input type="number" placeholder="0" class="form-control" name="stock" value="<%=product.stock%>"></div>
+                                                </div>
+
+                                                <!-- Images -->
+                                            <div class="form-group mb-4">
+                                                <div>
+                                                    <label for="productImages" class="form-label">Product Images</label>
+                                                </div>
+                                                <div id="imagesPreviewContainer">
+                                                    <% for(let i = 0; i < product.images.length; i++) { %>
+                                                    <img src="./product_images/<%= product.images[i] %>" id="imgView<%= i+1 %>" alt="product image" width="100px" height="100px">
+                                                    <% } %>
+                                                </div>
+                                                <div>
+                                                    <input type="file" id="productImages" name="images" class="form-control" onchange="viewImages(event)" multiple>
+                                                </div>
+                                            </div>
+
+                                
+                                                <!-- Hidden Input -->
+                                                <input type="hidden" name="id" value="<%= product._id %>">
+                                
+                                                <!-- Submit Button -->
+                                                <div class="d-flex justify-content-center">
+                                                    <input type="submit" value="Publish" class="btn btn-primary">
+                                                </div>
+                                              </div>
+                                            </form>
+                                        </section>
+                                    </main>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+      </div>
+
+
+
+    <script>
+        function viewImages(event) {
+    const files = event.target.files;
+    const imagesPreviewContainer = document.getElementById("imagesPreviewContainer");
+
+    // Clear the existing previews
+    imagesPreviewContainer.innerHTML = '';
+
+    if (files.length > 3) {
+        alert('You can upload up to 3 images only.');
+        event.target.value = '';  // Clear the input
+        return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        // Validate file size
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Each image should be less than 2MB in size.');
+            event.target.value = '';  // Clear the input
+            return;
+        }
+
+        // Validate file type
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        if (!validTypes.includes(file.type)) {
+            alert('Only jpeg and png image types are allowed.');
+            event.target.value = '';  // Clear the input
+            return;
+        }
+
+        // Display image preview
+        const imgPreview = document.createElement('img');
+        imgPreview.src = URL.createObjectURL(file);
+        imgPreview.width = 100;
+        imgPreview.height = 100;
+        imgPreview.id = "imgView" + (i+1); // For example, imgView1, imgView2, etc.
+        imagesPreviewContainer.appendChild(imgPreview);
+    }
+}
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fashion Palace</title>
+    <link rel="icon" type="image/png" href="/public/images/icons/favicon.png"/>
+    <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .btn-back {
+            margin: 1rem;
+            font-size: 1rem;
+            color: #ffffff; /* White text */
+            background-color: #007bff; /* Blue background */
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none; /* No underline */
+        }
+        .card {
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+        .card .card-body {
+            padding: 3rem 4rem;
+        }
+        .btn-primary {
+            background-color:#007bff;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .narrow-column {
+            width: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <%- include("./includes/sidebar.ejs") %>
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+          <!--  Header Start -->
+          <%- include("./includes/header.ejs") %>
+          <!--  Header End -->
+          <div class="container-fluid">
+            <!--  Row 1 -->
+            
+            <div class="row">
+              
+              <div class="col-lg-12 d-flex align-items-stretch">
+                <div class="card w-100">
+                  <div class="card-body p-4">
+                        <!-- Main content -->
+                        <main class="container my-5">       
+                            <h1 class="mb-5 text-center text-secondary">Add New Product</h1>
+                            <div class="text-center mt-5">
+                                <p class="text-danger"><%=(typeof message!=='undefined')?message:""%></p>
+                            </div>
+                            <form id="productForm" action="/admin/addProduct" method="post" enctype="multipart/form-data">
+                                <div class="card shadow-lg">
+                                    <div class="card-body">
+                                        <!-- Your form groups go here -->
+                                        <div class="form-group mb-4">
+                                            <div>
+                                                <label class="form-label" for="product-name">Product title</label>
+                                            </div>
+                                            <div>
+                                                <input type="text" id="product-name" class="form-control" name="name" placeholder="Type here">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group mb-4">
+                                            <div>
+                                                <label class="form-label" for="product-description">Description</label>
+                                            </div>
+                                            <div>
+                                                <textarea class="form-control" id="product-description" name="description" rows="4" placeholder="Type here"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group mb-4">
+                                            <div>
+                                                <label class="form-label" for="product-category">Category</label>
+                                            </div>
+                                            <div>
+                                                <select class="form-select" id="product-category" name="category">
+                                                    <% category.forEach(function(category) { %>
+                                                    <option value="<%= category._id %>"><%= category.name %></option>
+                                                    <% }); %>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-4">
+                                            <div>
+                                                <label class="form-label" for="product-price">Cost in INR</label>
+                                            </div>
+                                            <div>
+                                                <input type="number" id="product-price" class="form-control" name="price" placeholder="00.0">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-4">
+                                            <div>
+                                                <label class="form-label">Stock</label>  
+                                            </div>                                    
+                                            <div>
+                                                <input type="number" placeholder="0" class="form-control" name="stock" id="stock" onkeyup="stockValidation()"><span id="stockError"></span>
+                                            </div>
+                                        </div>
+                                        
+                                        <h5 class="mt-5 mb-3 text-secondary">Product Images</h5>
+                                        
+                                        <div class="form-group mb-4">
+                                            <div>
+                                                <label class="form-label" for="images">Product Images</label>
+                                            </div>
+                                            <div id="imgPreviewContainer">
+                                                <!-- Images will be previewed here -->
+                                            </div>
+                                            <div>
+                                                <input type="file" id="images" name="images" class="form-control" onchange="viewImages(event)" multiple>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary mt-3"><i class="bi bi-box-arrow-in-up"></i> Publish Product</button>
+                                    </div>
+                                </div>
+                            </form>        
+                        </main>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+      </div>
+
+    <script>
+
+        function viewImages(event) {
+        const files = event.target.files;
+        const imgPreviewContainer = document.getElementById("imgPreviewContainer");
+        
+        // Clear the preview container
+        imgPreviewContainer.innerHTML = '';
+
+        if (files.length > 3) {
+            alert('You can upload up to 3 images only.');
+            event.target.value = '';  // Clear the input
+            return;
+        }
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            
+            // Validate file size
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Each image should be less than 2MB in size.');
+                event.target.value = '';  // Clear the input
+                return;
+            }
+
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            if (!validTypes.includes(file.type)) {
+                alert('Only jpeg and png image types are allowed.');
+                event.target.value = '';  // Clear the input
+                return;
+            }
+
+            // Display image preview
+            const imgPreview = document.createElement('img');
+            imgPreview.src = URL.createObjectURL(file);
+            imgPreview.width = 100;
+            imgPreview.height = 100;
+            imgPreviewContainer.appendChild(imgPreview);
+        }
+    }
+
+
+    </script>
+    <script>
+        const stock = document.getElementById("stock")
+
+        function stockValidation(){
+            const stockValue = stock.value
+			if(stockValue.trim()==0){
+				stockError.innerHTML = 'Stock is Required'
+				stockError.style.color = 'red'
+				stock.style.border = "solid 2px red";
+				return false;
+			}
+            if(stockValue <  0 ){
+				stockError.innerHTML = 'Stock Must be greater than or equal to zero'
+				stockError.style.color = 'red'
+				stock.style.border = "solid 2px red";
+				return false;
+			}
+            stockError.innerHTML = ""
+			stockError.style.color = "green"
+			stock.style.border = "solid 2px green";
+			return true
+        }
+    </script>
+
+<script>
+    const productForm = document.getElementById('productForm');
+
+    productForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(productForm);
+
+        fetch('/admin/addProduct', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            // Check if the response is ok (status code 200-299)
+            if (!response.ok) {
+                // Convert the response body to text and throw it as an error
+                return response.text().then(errorText => {
+                    throw new Error(errorText);
+                });
+            }
+            return response.text();  // If response is ok, convert body to text
+        })
+        .then(data => {
+            window.location.href = '/admin/productManagement';
+        })
+        .catch((error) => {
+            console.error('Error:', error.message);
+            alert(error.message);  // Now, this will display our error messages
+        });
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+
+
+
+<%- include('../layouts/headUser.ejs') %>
+
+        <main class="main">
+           
+            <div class="login-page bg-image   pb-8   pb-md-12   pb-lg-17" style="background-image: url('assets/images/backgrounds/bgg.png'); padding-top: 0.1rem;">
+            	<div class="container" style="height: 350px;">
+            		<div class="form-box mt-5" >
+            			<div class="form-tab" style="height: 330px;">
+	            			<ul class="nav nav-pills nav-fill" role="tablist">
+							    <li class="nav-item">
+							        <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="login" role="tab" aria-controls="signin-2" aria-selected="false">Sign In</a>
+							    </li>
+							   
+							</ul>
+							<div class="tab-content">
+							    <div class="" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+							    	<form action="" method="post" id="contactForm">
+							    		<div class="form-group">
+							    			<label for="singin-email-2">Username or email address *</label>
+							    			<input type="text" class="form-control"  id="email" name="email" placeholder="Username"  onkeyup="emailValidation()">
+											<span id="emailError" class="text-danger"></span>
+							    		</div><!-- End .form-group -->
+
+							    		<div class="form-group">
+							    			<label for="singin-password-2">Password *</label>
+							    			<input type="password" class="form-control" id="name" name="password" placeholder="Password" >
+							    		</div><!-- End .form-group -->
+
+							    		<div class="form-footer">
+							    			<button type="submit" class="btn btn-outline-primary-2">
+			                					<span>LOG IN</span>
+			            						<i class="icon-long-arrow-right"></i>
+			                				</button>
+
+			                				
+
+											<a href="forgotPassword" class="forgot-link">Forgot Your Password?</a>
+							    		</div><!-- End .form-footer -->
+							    	</form>
+                                    
+							    	<%=(typeof message!=='undefined')?message:""%>
+                                    
+							    </div><!-- .End .tab-pane -->
+								<center>
+									<a href="/register" class="forgot-link">Create an Account</a>
+								</center>
+							    
+							</div><!-- End .tab-content -->
+						</div><!-- End .form-tab -->
+            		</div><!-- End .form-box -->
+            	</div><!-- End .container -->
+            </div><!-- End .login-page section-bg -->
+        </main><!-- End .main -->
+
+       
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <%- include('../layouts/userFooter.ejs') %>
+
+		<!-- Plugins JS File -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/js/jquery.hoverIntent.min.js"></script>
+		<script src="assets/js/jquery.waypoints.min.js"></script>
+		<script src="assets/js/superfish.min.js"></script>
+		<script src="assets/js/owl.carousel.min.js"></script>
+		<!-- Main JS File -->
+		<script src="assets/js/main.js"></script>
+
+
+	<script>
+		const contactForm = document.getElementById("contactForm")
+
+		const email = document.getElementById("email");
+
+const emailError = document.getElementById("emailError");
+
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+function emailValidation() {
+  const emailValue = email.value;
+
+  if (emailValue.trim() === "") {
+    emailError.innerHTML = "Email or Username is required";
+    emailError.style.color = "red";
+    email.style.border = "solid 2px red";
+    return false;
+  }
+
+  if (!emailValue.match(emailRegex)) {
+    emailError.innerHTML = "Email is not valid";
+    emailError.style.color = "red";
+    email.style.border = "solid 2px red";
+    return false;
+  }
+
+  emailError.innerHTML = "";
+  emailError.style.color = "green";
+  email.style.border = "solid 2px green";
+  return true;
+}
+
+			contactForm.addEventListener("submit",(event)=>{
+            event.preventDefault();
+            if( !emailValidation()) {
+				return false
+			}else{
+				contactForm.submit()
+			}
+        })
+
+	</script>

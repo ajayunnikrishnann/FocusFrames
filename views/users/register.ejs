@@ -1,0 +1,293 @@
+<%- include('../layouts/headUser.ejs') %>
+
+<main class="main">
+    <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
+        style="background-image: url('assets/images/backgrounds/bgg.png')">
+        <div class="container">
+            <div class="form-box">
+                <div class="form-tab">
+                    <ul class="nav nav-pills nav-fill" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="login" role="tab"
+                                aria-controls="signin-2" aria-selected="false">Sign Up</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                            <form action="" method="post" id="contactForm">
+                                <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name"
+                                    onkeyup="fnameValidation()">
+                                <span id="fnameError" class="text-danger"></span>
+
+                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name"
+                                    onkeyup="lnameValidation()">
+                                <span id="lnameError" class="text-danger"></span>
+
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email ID"
+                                    onkeyup="emailValidation()">
+                                <span id="emailError" class="text-danger"></span>
+
+                                <input type="number" class="form-control" id="mno" name="mno" placeholder="Mobile Number"
+                                    onkeyup="mnoValidation()">
+                                <span id="mnoError" class="text-danger"></span>
+
+                                <input type="text" class="form-control" id="referral" name="appliedCode"
+                                    placeholder="Referral Code">
+
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Password" onkeyup="passwordValidation()">
+                                <span id="passwordError" class="text-danger"></span>
+
+                                <input type="password" class="form-control" id="confPassword" name="confPassword"
+                                    placeholder="Confirm Password" onkeyup="confPasswordValidation()">
+                                <span id="confPasswordError" class="text-danger"></span>
+
+                                <div class="form-footer">
+                                    <button type="submit" class="btn btn-outline-primary-2">
+                                        <span>SIGN UP</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                    <%=(typeof message!=='undefined')?message:""%>
+                                </div>
+                            </form>
+                        </div>
+                        <center>
+                            <a href="/login" class="forgot-link">Already have an Account</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+<%- include('../layouts/userFooter.ejs') %>
+    
+	<style>
+	.form-box {
+    max-width: 400px; /* Adjust the maximum width as needed */
+	
+    margin: 0 auto;
+    padding: 20px; /* Adjust the padding as needed */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a background color */
+    border-radius: 10px; /* Optional: Add rounded corners */
+
+
+	.container {
+		
+	max-height: 0px;
+    max-width: 100%; /* Ensure it spans the full width of the parent container */
+    padding: 0 20px; /* Adjust the horizontal padding as needed */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+}
+
+.form-box {
+        max-width: 400px; /* Adjust the maximum width as needed */
+        margin: 0 auto;
+        padding: 20px; /* Adjust the padding as needed */
+		
+        background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a background color */
+        border-radius: 10px; /* Optional: Add rounded corners */
+    }
+
+    /* Add or modify the padding for the form elements inside the form-box */
+    .form-box input[type="text"],
+    .form-box input[type="number"],
+    .form-box input[type="password"] {
+        padding: 10px; /* Adjust the padding for the form elements */
+		padding-top: 10px;
+        margin-bottom: 10px; /* Optional: Add spacing between form elements */
+    }
+
+ 
+   
+
+	</style>
+
+
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+
+    <script>
+        const contactForm = document.getElementById("contactForm")
+
+        const fname = document.getElementById("fname")
+        const lname = document.getElementById("lname")
+        const email = document.getElementById("email")
+        const mno = document.getElementById("mno")
+        const password = document.getElementById("password")
+        const confPassword = document.getElementById("confPassword")
+
+
+        const fnameError = document.getElementById("fnameError")
+		const lnameError = document.getElementById("lnameError")
+		const mnoError = document.getElementById("mnoError")
+		const emailError = document.getElementById("emailError")
+		const passwordError = document.getElementById("passwordError")
+		const confPasswordError = document.getElementById("confPasswordError")
+
+        const nameRegex = /^[A-Za-z]+$/;
+		function fnameValidation(){
+			const fnameValue = fname.value
+			if(fnameValue.trim()==0){
+				fnameError.innerHTML = 'First Name is required'
+				fnameError.style.color = 'red'
+				fname.style.border = "solid 2px red";
+				return false;
+			}
+
+
+			if(!fnameValue.match(nameRegex)){
+				fnameError.innerHTML = 'First Name is not Valid'
+				fnameError.style.color = 'red'
+				fname.style.border = "solid 2px red";
+				return false;
+			}
+
+
+
+			fnameError.innerHTML = ""
+			fnameError.style.color = "green"
+			fname.style.border = "solid 2px green";
+			return true
+		}
+
+        function lnameValidation(){
+			const lnameValue = lname.value
+			if(lnameValue.trim()==0){
+				lnameError.innerHTML = 'Last Name is required'
+				lnameError.style.color = 'red'
+				lname.style.border = "solid 2px red";
+				return false;
+			}
+
+			if(!lnameValue.match(nameRegex)){
+				lnameError.innerHTML = 'First Name is not Valid'
+				lnameError.style.color = 'red'
+				lname.style.border = "solid 2px red";
+				return false;
+			}
+
+
+
+			lnameError.innerHTML = ""
+			lnameError.style.color = "green"
+			lname.style.border = "solid 2px green";
+			return true
+		
+		}
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+		function emailValidation(){
+			const emailValue = email.value
+			if(!emailValue.match(emailRegex)){
+				emailError.innerHTML = 'Email not valid'
+				emailError.style.color = 'red'
+				email.style.border = "solid 2px red";
+				return false;
+			}
+			emailError.innerHTML = ""
+			emailError.style.color = "green"
+			email.style.border = "solid 2px green";
+			return true
+		}
+
+
+
+
+		const mobileRegex =  /^\d{10}$/
+		function mnoValidation(){
+			const mnoValue = mno.value
+			if(!mnoValue.match(mobileRegex)){
+				mnoError.innerHTML = 'Mobile Number not valid'
+				mnoError.style.color = 'red'
+				mno.style.border = "solid 2px red";
+				return false;
+			}
+			mnoError.innerHTML = ""
+			mnoError.style.color = "green"
+			mno.style.border = "solid 2px green";
+			return true
+		}
+		
+        passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+        
+
+		function passwordValidation(){
+			const passwordValue = password.value
+
+            if(passwordValue.trim()==0){
+				passwordError.innerHTML = 'Password is required'
+				passwordError.style.color = 'red'
+				password.style.border = "solid 2px red";
+				return false;
+			}
+
+			if(!passwordValue.match(passwordRegex)){
+				passwordError.innerHTML = 'Password should contain atleast 8 characters 1 number and a special chara'
+				passwordError.style.color = 'red'
+				password.style.border = "solid 2px red";
+				return false;
+			}
+			passwordError.innerHTML = ""
+			passwordError.style.color = "green"
+			password.style.border = "solid 2px green";
+			return true
+		}
+
+		function confPasswordValidation(){
+			const passwordValue = password.value
+			const confPasswordValue = confPassword.value
+
+            if(confPasswordValue.trim()==0){
+				confPasswordError.innerHTML = 'Password is required'
+				confPasswordError.style.color = 'red'
+				confPassword.style.border = "solid 2px red";
+				return false;
+			}
+
+
+			if(passwordValue !== confPasswordValue){
+				console.log(confPasswordValue);
+				confPasswordError.innerHTML = 'Password and Confirm Password should be same'
+				confPasswordError.style.color = 'red'
+				confPassword.style.border = "solid 2px red";
+				return false;
+			}
+			confPasswordError.innerHTML = ""
+			confPasswordError.style.color = "green"
+			confPassword.style.border = "solid 2px green";
+			return true
+		}
+
+        contactForm.addEventListener("submit",(event)=>{
+            event.preventDefault();
+            if(!fnameValidation() || !lnameValidation() ||  !emailValidation() ||!mnoValidation() || !passwordValidation() || !confPasswordValidation()) {
+				return false
+			}else{
+				contactForm.submit()
+			}
+        })
+
+
+
+    </script>
+
+</body>
+
+
+<!-- molla/login.html  22 Nov 2019 10:04:03 GMT -->
+</html>

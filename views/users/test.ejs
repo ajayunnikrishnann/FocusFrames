@@ -1,0 +1,532 @@
+<%- include('../layouts/userHeader.ejs')%>
+
+<link rel="stylesheet" href="../user-assets/css/popup.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Checkout<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                <div class="checkout-discount">
+                    <form action="#">
+                        <input type="text" class="form-control" required id="checkout-discount-input">
+                        <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here if you have code</span></label>
+                    </form>
+                </div><!-- End .checkout-discount -->
+                <form action="" id="checkOut-form">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+                            <%if(address[0]){%>
+                                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                                    <div class="col-md-6 form-group p_star">
+                                        <input type="text" class="form-control" id="first" name="name" value="<%=address[0].name%>">
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6 form-group p_star">
+                                        <input type="text" class="form-control" id="number" name="number" value="<%=address[0].mobileNumber%>">
+                                    </span>
+                                    </div>
+                                 
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="text" class="form-control" id="add1" name="address" value="<%=address[0].address%>" >
+                                    </div>
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="text" class="form-control" id="add1" name="locality" value="<%=address[0].locality%>">
+                                    </div>
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="text" class="form-control" id="add1" name="city" value="<%=address[0].city%>">
+                                    </div>
+                                   
+                                    <div class="col-md-12 form-group">
+                                        <input type="text" class="form-control" id="zip" name="zip" value="<%=address[0].pincode%>">
+                                    </div>
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="text" class="form-control" id="add1" name="state" value="<%=address[0].state%>">
+                                    </div>
+
+                                  
+
+
+                                    <%}else{%>
+                                        <div class="col-md-12 form-group p_star">
+                                            <h1>Please Add An Address</h1>
+                                        </div>
+            
+                                        <%}%>
+
+                                        
+
+                                        <%if(address[0]){%>
+                                            <input type="hidden" name="address" value="<%=address[0]._id%>" >
+                                            <%}else{%>
+                                                <%}%>
+                                </form>    
+                                
+                                <div class="banner-desc" style="margin-left:10px">
+                                    <section class="intro">
+                                        <button class="btn-reply" id="btn">ADD NEW ADDRESS</button>
+                                    </section>
+                                </div>
+
+                                <div class="banner-desc" style="margin-left: 10px; color: #fff;" >
+                                    <section class="intro">
+                                        <button class="button"id="btn"  >CHANGE  ADDRESS</button>
+                                    </section>
+                                </div>
+                             
+
+                                <!-- <label>Email address *</label> -->
+                                <!-- <input type="email" class="form-control" required> -->
+
+                                <div class="custom-control custom-checkbox">
+                                    <!-- <input type="checkbox" class="custom-control-input" id="checkout-create-acc"> -->
+                                    <!-- <label class="custom-control-label" for="checkout-create-acc">Create an account?</label> -->
+                                </div><!-- End .custom-checkbox -->
+
+                                <div class="custom-control custom-checkbox">
+                                    <!-- <input type="checkbox" class="custom-control-input" id="checkout-diff-address">
+                                    <label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label> -->
+                                </div><!-- End .custom-checkbox -->
+
+                                <!-- <label>Order notes (optional)</label> -->
+                                <!-- <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea> -->
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3">
+                            <form id="checkOut-form">
+                            <div class="summary">
+                                <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <% cart.forEach(function(cart,index) {%>
+                                        <tr>
+                                            <td><a href="#"><%=cart.carted.name%> Quantity:<%=cart.quantity%></a></td>
+                                            <td>₹<%= cart.total %></td>
+                                        </tr>
+                                        <% }) %>
+                        
+                                        
+                                        <tr class="summary-subtotal">
+                                            <td>Subtotal:</td>
+                                            <td>₹<%=cart.cartTotal%></td>
+                                        </tr><!-- End .summary-subtotal -->
+                                        <tr>
+                                            <td>Shipping:</td>  
+                                            <td>Free shipping</td>
+                                        </tr>
+                                        <tr class="summary-total">
+                                            <td>Total:</td>
+                                            <td>₹<%=cart.cartTotal%></td>
+                                        </tr><!-- End .summary-total -->
+                                    </tbody>
+                                    
+                                </table><!-- End .table table-summary -->
+
+                                <div class="accordion-summary" id="accordion-payment">
+                                    
+                                    <div class="card">
+                                        <div class="card-header" id="heading-2">
+                                            <!-- <h2 class="card-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                                    Check payments
+                                                </a>
+                                            </h2> -->
+                                        </div><!-- End .card-header -->
+                                        <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
+                                            <div class="card-body">
+                                                Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. 
+                                            </div><!-- End .card-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .card -->
+
+                                    <div class="card">
+                                        <div class="card-header" id="heading-3">
+                                            <h2 class="card-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3" name="paymentOption" value="cod">
+                                                    Cash on delivery
+                                                </a>
+                                            </h2>
+                                        </div><!-- End .card-header -->
+                                        <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
+                                            <div class="card-body">Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. 
+                                            </div><!-- End .card-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .card -->
+
+                                    <div class="card">
+                                        <div class="card-header" id="heading-4">
+                                            <h2 class="card-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
+                                                    Wallet <small class="float-right paypal-link">What is PayPal?</small>
+                                                </a>
+                                            </h2>
+                                        </div><!-- End .card-header -->
+                                        <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">
+                                            <div class="card-body">
+                                                Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
+                                            </div><!-- End .card-body -->
+                                        </div><!-- End .collapse -->
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header" id="heading-5">
+                                            <h2 class="card-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
+                                                    Credit Card (Stripe)
+                                                    <img src="assets/images/payments-summary.png" alt="payments cards">
+                                                </a>
+                                            </h2>
+                                        </div><!-- End .card-header -->
+                                        <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
+                                            <div class="card-body"> Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Lorem ipsum dolor sit ame.
+                                            </div><!-- End .card-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .card -->
+                                </div><!-- End .accordion -->
+
+                                <%if(address[0]){%>
+                                <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" class="primary-btn" onclick="proceedToPayment()">
+                                    <span class="btn-text">Place Order</span>
+                                    <span class="btn-hover-text">Proceed to Checkout</span>
+                                </button>
+                                <%}else{%>
+                                <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" disabled  class="primary-btn" onclick="proceedToPayment()">
+                                    <span class="btn-text">Place Order</span>
+                                    <span class="btn-hover-text">Proceed to Checkout</span>
+                                </button>
+                                <%}%>
+                            </div><!-- End .summary -->
+                        </form>
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                </form>
+            </div><!-- End .container -->
+        </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+
+
+
+
+
+
+<%- include('../layouts/userFooter.ejs')%>
+
+
+<div class="pop-up-list">
+    <button class="pop-up-button"><i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+        <div class="top-title-section">
+        <p class="top-title special">Addresses</p>
+        </div>
+        <br>
+
+        <div class="comment-list grid-view" style="height: 500px; overflow-y:scroll;">
+                <form id="addressForm" action="/changeDefaultAddress" method="POST">
+                <% address.forEach(function(address,index) {%>
+                    <label for="address<%=index%>">Address</label>
+                <input type="radio" id="addressRadio{<%=index%>" name="addressRadio" value="<%=address._id%>" onchange="this.form.submit()">
+                <br>
+                <div class="single-comment grid-item">
+                    <div class="user justify-content-between d-flex">
+                    <div class="desc">
+                        <h5>Name: <%=address.name%></h5>
+                        <h5>Number: <%=address.mobileNumber%></h5>
+                        <h5>Address: <%=address.address%></h5>
+                        <h5>City: <%=address.city%></h5>
+                        <h5>Street: <%=address.locality%></h5>
+                        <h5>Pin: <%=address.pincode%></h5>
+                    </div>
+                    </div>
+                </div>
+                <br>
+                <% }) %>
+            </form>
+        </div>
+</div>
+<div class="overlay-pop-up"></div>
+
+
+
+
+
+
+
+
+<!-- <div class="comment-list grid-view" style="height: 500px; overflow-y:scroll;">
+    <form id="addressForm" action="/changeDefaultAddress" method="POST">
+    <% address.forEach(function(address,index) {%>
+        <label for="address<%=index%>">Address</label>
+    <input type="radio" id="addressRadio{<%=index%>" name="addressRadio" value="<%=address._id%>" onchange="this.form.submit()">
+    <br>
+    <div class="single-comment grid-item">
+        <div class="user justify-content-between d-flex">
+        <div class="desc">
+            <h5>Name: <%=address.name%></h5>
+            <h5>Number: <%=address.mobileNumber%></h5>
+            <h5>Address: <%=address.address%></h5>
+            <h5>City: <%=address.city%></h5>
+            <h5>Street: <%=address.locality%></h5>
+            <h5>Pin: <%=address.pincode%></h5>
+        </div>
+        </div>
+    </div>
+    <br>
+    <% }) %>
+</form>
+</div> -->
+
+
+<div class="popup-wrapper">
+    <div class="popup">
+        <button class="close-button"></button>
+        <form class="popup-form" action="/checkOutAddress" method="POST" id="myForm" onsubmit="return validateForm()">
+            <h2 class="popup-form__title">Add Address</h2>
+            <input type="text" class="popup-form__input" placeholder="Name" name="name" id="name">
+            <span id="nameError"></span>
+            <input type="tel" class="popup-form__input" placeholder="Mobile Number" name="mno" id="mno">
+            <span id="mnoError"></span>
+            <textarea class="popup-form__input" placeholder="House Address" name="address" id="address"></textarea>
+            <input type="text" class="popup-form__input" placeholder="City" name="city" id="city">
+            <input type="text" class="popup-form__input" placeholder="Street" name="locality" id="locality">
+            <input type="text" class="popup-form__input" placeholder="PostalCode/PIN" name="pincode" id="pincode">
+            <input type="text" class="popup-form__input" placeholder="State" name="state" id="state">
+            <button type="submit" id="btn" class="popup-form__submit">ADD</button>
+        </form>
+    </div>
+  </div>
+
+<script>
+    function validateForm() {
+        const name = document.getElementById("name").value.trim();
+        const mobileNumber = document.getElementById("mno").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const city = document.getElementById("city").value.trim();
+        const locality = document.getElementById("locality").value.trim();
+        const pincode = document.getElementById("pincode").value.trim();
+        const state = document.getElementById("state").value.trim();
+  
+        // Check if the name is not empty
+        if (name === "") {
+          alert("Please enter valid Name");
+            return false;
+        }
+  
+        // Check if the mobile number is a valid number with at least 10 digits
+        if (isNaN(mobileNumber) || mobileNumber.length < 10) {
+          alert("Please enter valid mobile Number .");
+            return false;
+        }
+  
+        // Check if the address is not empty
+        if (address === "") {
+            alert("Please enter your house address.");
+            return false;
+        }
+  
+        // Check if the city is not empty
+        if (city === "") {
+            alert("Please enter your city.");
+            return false;
+        }
+  
+        // Check if the street/locality is not empty
+        if (locality === "") {
+            alert("Please enter your street/locality.");
+            return false;
+        }
+  
+        // Check if the postal code/PIN is not empty and is a valid number
+        if (pincode === "" || isNaN(pincode)) {
+            alert("Please enter a valid postal code/PIN.");
+            return false;
+        }
+  
+        // Check if the state is not empty
+        if (state === "") {
+            alert("Please enter your state.");
+            return false;
+        }
+  
+        // If all validations pass, the form will be submitted
+        return true;
+    }
+  </script>
+
+
+<script>
+    // Get references to the elements
+    let popupWrappers = document.querySelectorAll(".popup-wrapper");
+    let popupForms = document.querySelectorAll(".popup-form");
+    let popupBtns = document.querySelectorAll(".btn-reply");
+    let popupCloses = document.querySelectorAll(".close-button");
+
+    // Add event listeners to each popup button
+    popupBtns.forEach((btn, index) => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            showPopup(index);
+        });
+    });
+
+    // Add event listeners to each popup close button
+    popupCloses.forEach((closeBtn, index) => {
+        closeBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            removePopup(index);
+        });
+    });
+
+    // Add event listeners to each popup form
+    popupForms.forEach((form) => {
+        form.addEventListener("submit", () => {
+            // Implement your form submission logic here
+            removePopup();
+        });
+    });
+
+    // Add event listeners to each popup wrapper
+    popupWrappers.forEach((wrapper, index) => {
+        wrapper.addEventListener("click", (e) => {
+            let target = e.target;
+            if (target.classList.contains("popup-wrapper")) {
+                removePopup(index);
+            } else {
+                return;
+            }
+        });
+    });
+
+    function showPopup(index) {
+        popupWrappers[index].classList.add("active");
+        bodyScroll();
+    }
+
+    function removePopup(index) {
+        popupWrappers[index].classList.remove("active");
+        bodyScroll();
+    }
+
+    function bodyScroll() {
+        document.body.classList.toggle("no-scroll");
+    }
+    </script>
+
+
+<script>
+
+    var popup = document.getElementsByClassName("pop-up-list")[0];
+    var overlay = document.getElementsByClassName("overlay-pop-up")[0];
+
+    var button = document.getElementsByClassName("button")[0];
+
+    var close = document.getElementsByClassName('pop-up-button')[0];
+
+    button.onclick=function(){
+    popup.style.display = "block";
+    overlay.style.display = "block";
+    }
+
+    overlay.onclick=function(){
+    popup.style.display = "none";
+    overlay.style.display = "none"; 
+    }
+    close.onclick=function(){
+    popup.style.display = "none";
+    overlay.style.display = "none"; 
+    
+    }
+    </script>
+
+
+<script>
+    function proceedToPayment() {
+      event.preventDefault()
+$.ajax({
+  url: "/checkOut",
+  method: 'POST',
+  data: $('#checkOut-form').serialize(),
+  success: (response) => {
+    console.log(response,'+++++=========== ');
+    if (response.error) {
+      console.log(response,'error--------------------------------');
+
+      console.log(response.error.message,'---------------');
+      Swal.fire({
+        title: 'Error!',
+        text: response.error,
+        icon: 'error',
+        timer: 5000
+      })
+    } else if (response.codStatus == true) {
+      console.log(response,'status');
+      Swal.fire({
+        title: 'Order Placed!',
+        text: 'Your order has been placed successfully.',
+        icon: 'success',
+        timer: 5000
+      }).then(() => {
+        location.href = '/'
+      })
+    }else if (response.orderStatus== true) {
+      Swal.fire({
+        title: 'Order Placed!',
+        text: 'Your order has been placed successfully.',
+        icon: 'success',
+        timer: 5000
+      }).then(() => {
+        location.href = '/'
+      })
+    }else if (response.status== "OrderFailed") {
+      Swal.fire({
+        title: 'Order Failed!',
+        text: 'Your Product is Out of Stock .Please Check after some time',
+        icon: 'error',
+        timer: 5000
+      }).then(() => {
+        location.href = '/'
+      })
+    }
+     else {
+      try {
+        razorpay(response)
+        console.log(response, '1');
+        console.log(response.amount, '2');
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: error.message,
+          icon: 'error',
+          timer: 5000
+        })
+      }
+    } 
+  }
+})
+}
+</script>

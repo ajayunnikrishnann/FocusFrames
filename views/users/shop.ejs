@@ -1,0 +1,346 @@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+<script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	 crossorigin="anonymous"></script>
+	<script src="../assets/js/vendor/bootstrap.min.js"></script>
+	<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="../assets/js/jquery.nice-select.min.js"></script>
+	<script src="../assets/js/jquery.sticky.js"></script>
+	<script src="../assets/js/nouislider.min.js"></script>
+	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="../assets/js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="../assets/js/gmaps.min.js"></script>
+	<script src="../assets/js/main.js"></script>
+
+	<style>
+		.tooltip-ellipsis {
+	  max-width: 200px; /* Adjust the maximum width as needed */
+	  overflow: hidden;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+	  position: relative;
+	  cursor: help;
+	}
+	
+	
+	.tooltip-ellipsis::after {
+	  content: attr(title);
+	  position: absolute;
+	  top: 100%;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  padding: 4px 8px;
+	  background-color: #000;
+	  color: #fff;
+	  border-radius: 4px;
+	  white-space: nowrap;
+	  opacity: 0;
+	  visibility: hidden;
+	  transition: opacity 0.3s;
+	}
+	
+	.tooltip-ellipsis:hover::after {
+	  opacity: 1;
+	  visibility: visible;
+	}
+	
+	</style>
+
+
+<%- include('../layouts/userHeader.ejs') %>	
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-headerr-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Exciting Offers <span>Starting price ₹10000</span> <span>Onwards</span></h1>
+        		</div><!-- End .container -->
+        	</div>
+            
+
+            <div class="page-content">
+                <div class="container">
+                	<div class="row">
+                		<div class="col-lg-9">
+                			<div class="toolbox">
+                				<div class="toolbox-left">
+                					
+                				</div><!-- End .toolbox-left -->
+
+                				<div class="toolbox-right">
+                					<div class="toolbox-sort">
+                						<!-- <label for="sortby">Sort by:</label> -->
+                						<div class="select-custom">
+											<!-- <select name="sortby" id="sortby" class="form-control">
+												<option value="popularity" selected="selected">Most Popular</option>
+												<option value="rating">Most Rated</option>
+												<option value="date">Date</option>
+											</select> -->
+										</div>
+                					</div><!-- End .toolbox-sort -->
+                					
+                				</div><!-- End .toolbox-right -->
+                			</div><!-- End .toolbox -->
+
+                            <div class="products mb-3">
+                                <div class="row justify-content-center">
+									<% product.forEach((item) => { %>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-7 text-center">
+                                            <figure class="product-media">
+                                                <!-- <span class="product-label label-out">Out of Stock</span> -->
+                                                <a href="/productPage?id=<%=item._id %>">
+                                                    <img src="../product-images/<%= item.images[0]%>" alt="Product image" class="product-image">
+                                                </a>
+
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable" onclick="addToWishList('<%=item._id%>')"><span>add to wishlist</span></a>
+                                                    
+                                                </div><!-- End .product-action-vertical -->
+
+                                                <div class="product-action">
+                                                    <a href="#" class="btn-product btn-cart" onclick="addtocart('<%=item._id%>')"><span>Add to cart</span></a>
+                                                </div><!-- End .product-action -->
+                                            </figure><!-- End .product-media -->
+
+                                            <div class="product-body">
+                                                <div class="product-cat">
+                                                    <a href="#">Cameras</a>
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title tooltip-ellipsis" title="<%=item.name %>"><a href="/productPage?id=<%=item._id %>"><%=item.name %></a></h3><!-- End .product-title -->
+												<div class="product-price">
+													<span class="out-price" style="font-weight: bold; color: black;">₹<%=item.price %></span>
+												</div>
+												
+												<!-- End .product-price -->
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                    <span class="ratings-text">( 6 Reviews )</span>
+                                                </div><!-- End .rating-container -->
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
+                                    </div><!-- End .col-sm-6 col-lg-4 -->
+									<% }) %>
+                                   
+                                </div><!-- End .row -->
+                            </div><!-- End .products -->
+
+							<nav aria-label="Page navigation">
+								<ul class="pagination justify-content-center">
+									<li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+										<a class="page-link page-link-prev" href="<%= currentPage > 1 ? '?page=' + (currentPage - 1) : '#' %>" aria-label="Previous" tabindex="-1" aria-disabled="<%= currentPage === 1 ? 'true' : 'false' %>">
+											<span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+										</a>
+									</li>
+									<% for (let page = 1; page <= totalPages; page++) { %>
+										<li class="page-item <%= page === currentPage ? 'active' : '' %>">
+											<a class="page-link" href="<%= page !== currentPage ? '?page=' + page : '#' %>"><%= page %></a>
+										</li>
+									<% } %>
+									<li class="page-item-total">of <%= totalPages %></li>
+									<li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+										<a class="page-link page-link-next" href="<%= currentPage < totalPages ? '?page=' + (currentPage + 1) : '#' %>" aria-label="Next">
+											Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+										</a>
+									</li>
+								</ul>
+							</nav>
+							
+							
+							
+                		</div><!-- End .col-lg-9 -->
+                		<aside class="col-lg-3 order-lg-first">
+                			<div class="sidebar sidebar-shop">
+                				<div class="widget widget-clean">
+                					<label>Filters:</label>
+                					<!-- <a href="#" class="sidebar-filter-clear">Clean All</a> -->
+                				</div><!-- End .widget widget-clean -->
+
+                				<div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+									    <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+									        Category
+									    </a>
+									</h3><!-- End .widget-title -->
+
+									<div class="collapse show" id="widget-1">
+										<div class="widget-body">
+											<div class="filter-items filter-items-count">
+
+												<div class="filter-item">
+													<div class="custom-control custom-checkbox">
+														
+														<a href="/shop" for="cat-1">All Products</a>
+													</div><!-- End .custom-checkbox -->
+													<!-- <span class="item-count">3</span> -->
+												</div><!-- End .filter-item -->
+
+												<% category.forEach(function(item) { %>
+													<div class="filter-item">
+													  <div class="custom-control">
+														<a class="category-link" data-category="<%= item._id %>" href="/categoryShop?id=<%= item._id %>"><%= item.name.toUpperCase() %></a>
+													  </div><!-- End .custom-checkbox -->
+													</div><!-- End .filter-item -->
+												  <% }) %>
+									
+												<!-- End .filter-item -->
+											</div><!-- End .filter-items -->
+										</div><!-- End .widget-body -->
+									</div><!-- End .collapse -->
+        						</div><!-- End .widget -->
+
+        				
+        						<div class="head" style="font-size: large; color: #000;">Price Sort</div>
+							<ul class="main-categories">
+							<li class="main-nav-list"><a class="nav-link" href="/shop?sort=price_asc"><span class="lnr lnr-arrow-right"></span>Low --> high</a></li>
+							<li class="main-nav-list"><a class="nav-link" href="/shop?sort=price_desc"><span class="lnr lnr-arrow-right"></span>HIgh --> Low</a></li>
+							</li>
+							</ul>
+							<div class="head"  style="font-size: large; color: #000;">Price Filter</div>
+							<ul class="main-categories">
+							<li class="main-nav-list"><a class="nav-link" href="/shop?minPrice=10000&&maxPrice=50000"><span class="lnr lnr-arrow-right"></span>10000 --> 50000</a></li>
+							<li class="main-nav-list"><a class="nav-link" href="/shop?minPrice=50000&&maxPrice=100000"><span class="lnr lnr-arrow-right"></span>50000 --> 100000</a></li>
+							<li class="main-nav-list"><a class="nav-link" href="/shop?minPrice=100000&&maxPrice=150000"><span class="lnr lnr-arrow-right"></span>100000 --> 150000</a></li>
+							<li class="main-nav-list"><a class="nav-link" href="/shop?minPrice=150000&&maxPrice=200000"><span class="lnr lnr-arrow-right"></span>150000 --> 200000</a></li>
+							<li class="main-nav-list"><a class="nav-link" href="/shop?minPrice=200000&&maxPrice=250000"><span class="lnr lnr-arrow-right"></span>200000 --> 250000</a></li>
+							<li class="main-nav-list"><a class="nav-link" href="/shop?minPrice=250000&&maxPrice=350000"><span class="lnr lnr-arrow-right"></span>250000 --> 350000</a></li>
+							</li>
+							</ul>
+
+							
+
+        						<!-- <div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+									    <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
+									        Price
+									    </a>
+									</h3>End .widget-title -->
+
+									<!-- <div class="collapse show" id="widget-5">
+										<div class="widget-body">
+                                            <div class="filter-price">
+                                                <div class="filter-price-text">
+                                                    Price Range:
+                                                    <span id="filter-price-range"></span>
+                                                </div>
+
+                                                <div id="price-slider"></div>
+                                           </div>
+										 </div>
+									</div> -->
+        						</div><!-- End .widget -->
+                			</div><!-- End .sidebar sidebar-shop -->
+                		</aside><!-- End .col-lg-3 -->
+                	</div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+		<%- include('../layouts/userFooter.ejs') %>	
+		<script>
+			function addtocart(proId) {
+			  $.ajax({
+				url: '/addToCart/' + proId,
+				method: 'POST',
+		  
+				success: (response) => {
+				  if (response.status==true) {
+					Swal.fire({
+					  title: 'Added To Cart',
+					  text: 'Your Product has been added to Cart',
+					  icon: 'success',
+					  timer: 5000
+					})
+					
+				  }else if(response.status=='outOfStock'){
+					Swal.fire({
+					  title: 'Out of Stock',
+					  text: 'Product Out Of Stock',
+					  icon: 'error',
+					  timer: 5000
+					})
+				  }else{
+					 window.location.href = '/login';
+				  }
+				}
+			  })
+			}
+		</script>
+
+
+<script>
+	function addToWishList(proId) {
+		event.preventDefault();
+    $.ajax({
+      url: '/add-to-wishlist',
+      method: 'POST',
+      data: {
+        proId: proId
+      },
+      success: (response) => {
+        if (response.status===true) {
+          // Product added to Wishlist successfully
+		  Swal.fire({
+			position: 'centre',
+			icon: 'success',
+			title: 'Product added to wish list',
+			showConfirmButton: false,
+			timer: 1500
+			})
+          
+
+        } else if(response.status===false) {
+          // Error adding product to Wishlist
+          Swal.fire({
+            icon: 'error',
+            title: 'Product already exist in Wishlist',
+            timer: 2000
+          });
+
+        }else{
+			 window.location.href = '/login';
+			}
+      }
+    })
+  }
+
+
+
+</script>
+
+		<script>
+			// Get all category links
+			const categoryLinks = document.querySelectorAll('.category-link');
+		  
+			// Attach click event handler to category links
+			categoryLinks.forEach(link => {
+			  link.addEventListener('click', function(event) {
+				event.preventDefault();
+				const selectedCategory = link.getAttribute('data-category');
+				const currentUrl = new URL(window.location.href);
+				currentUrl.searchParams.set('category', selectedCategory);
+				window.location.href = currentUrl.toString();
+			  });
+			});
+		  </script>
+		  
+
+		  <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	 crossorigin="anonymous"></script>
+	<script src="../assets/js/vendor/bootstrap.min.js"></script>
+	<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="../assets/js/jquery.nice-select.min.js"></script>
+	<script src="../assets/js/jquery.sticky.js"></script>
+	<script src="../assets/js/nouislider.min.js"></script>
+	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="../assets/js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="../assets/js/gmaps.min.js"></script>
+	<script src="../assets/js/main.js"></script>

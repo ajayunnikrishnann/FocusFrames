@@ -1,0 +1,149 @@
+<%- include('../layouts/userHeader.ejs')%>
+
+
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Order Details</h1>
+                <nav class="d-flex align-items-center">
+                    <!-- <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Order Details</a> -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+
+
+<!--================Order Details Area =================-->
+<section class="order_details section_gap">
+    <div class="container">
+                    <div class="row order_d_inner">
+            <div class="col-lg-4">
+                <div class="details_item">
+                    <h4>Order Info</h4>
+                    <ul class="list">
+                        <li><a href="#"><span>Order ID</span> :<%=orders[0]._id%></a></li>
+                        <li><a href="#"><span>Date</span> : <%=orders[0].createdAt.toLocaleString()%></a></li>
+                        <li><a href="#"><span>Total</span> : ₹<%=orders[0].totalPrice%></a></li>
+                        <li><a href="#"><span>Payment method</span> : <%=orders[0].paymentMethod%></a></li>
+                        <li><a href="#"><span>Payment Status</span> : <%=orders[0].paymentStatus%></a></li>
+                        <li><a href="#"><span>Transaction Id</span> : <%=orders[0].razorpayId%></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="col-lg-4">
+                <div class="details_item">
+                    <h4>Shipping Address</h4>
+                    <ul class="list">
+                        <li><a href="#"><span>Name</span> : <%=address.item.name%></a></li>
+                        <li><a href="#"><span>Adress</span> : <%=address.item.address%></a></li>
+                        <li><a href="#"><span>City</span> : <%=address.item.city%></a></li>
+                        <li><a href="#"><span>Locality </span> : <%=address.item.locality%></a></li>
+                        <li><a href="#"><span>Pincode </span> : <%=address.item.pincode%></a></li>
+                        <li><a href="#"><span>State </span> : <%=address.item.state%></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="order_details_table">
+            <h2>Order Details</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price / Unit</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(function(product,index) {%>
+
+
+                        <tr>
+                            <td>
+                                <p><%=product.productName%></p>
+                            </td>
+                            <td>
+                                <p>₹<%=product.productPrice%></p>
+                            </td>
+                            <td>
+                                <h5>x<%=product.quantity%></h5>
+                            </td>
+                            <td>
+                                <p>₹<%=product.productPrice*product.quantity%></p>
+                            </td>
+                        </tr>
+                        <% }) %>
+                        <tr>
+                            <td>
+                                <h4>Coupon Code</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p><%=orders[0].couponCode%></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Discount %</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p><%=orders[0].discountPercentage%> %</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Discount Amount</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p>₹ <%=orders[0].discountAmount%></p>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td>
+                                <h4>Total</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p>₹ <%=orders[0].totalPrice%></p>
+                            </td>
+                            <td>
+                                <%if(orders[0].orderStatus==='Delivered'){%>
+                                <a href="/invoice?id=<%=orders[0]._id%>" class="btn btn-primary">Download Invoice</a>
+                            <%}%>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<%- include('../layouts/userFooter.ejs')%>

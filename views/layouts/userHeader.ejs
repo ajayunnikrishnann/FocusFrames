@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+<!-- molla/category.html  22 Nov 2019 10:02:48 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FocusFrames</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/nouislider/nouislider.css">
+
+	
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="header"   >
+            
+            <div class="header-middle sticky-header" style="border-color:rgba(100, 88, 88, 0.877); border-width: 2px;">
+                <div class="container" style="height: 105px;">
+                    <div class="header-left">
+                       
+
+                        <a href="/" class="logo">
+                            <img src="assets/images/logo.png" alt="FocusFrames Logo" width="105" height="25">
+                        </a>
+
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a href="/" >Home</a>
+                                </li>
+                                <li>
+                                    <a href="/shop" >Shop</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="product.html"  >Product</a> -->
+                                </li>
+                                <li>
+									<% if (user != undefined) { %>
+                                        <div class="dropdown user-dropdown ml-4">
+                                            <a href="/profileDetails">
+                                                <span style="font-size: 18px;"><%= user.fname %></span>
+                                            </a>
+                                    
+                                            
+                                        </div><!-- End .user-dropdown -->
+                                    <% } else { %>
+                                        <div class="wishlist ml-4">
+                                            <a href="/login" title="Login">
+                                                <div class="icon">
+                                                    <!-- Add your icon here -->
+                                                </div>
+                                                <p></p>
+                                            </a>
+                                        </div>
+									<%}%>
+                                </li>
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+                        <div class="icons-container">
+                        <div class="header-search" style="color: black; padding-right: 30px;">
+                            <a type="submit" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                            <form action="/shop" method="get">
+                                <div class="header-search-wrapper">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="text" class="form-control" id="search_input" placeholder="Search Here" name="search" >
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+                       
+                        <a id="wishlist-link" href="/wishlist">
+                            <span id="wishlist-icon">&#10084;</span>
+                          </a>
+
+                          <style>
+                            #wishlist-icon {
+                                font-size: 24px;
+                                color: rgb(24, 22, 21);
+                                }
+
+                          </style>
+                          
+                         
+                        <div class="dropdown cart-dropdown">
+                            <a href="/cart" class="dropdown-toggle" role="button"  aria-haspopup="true" aria-expanded="false" >
+                                <i class="icon-shopping-cart"></i>
+                                <% if (typeof user!=='undefined' && user!==null) { %>
+                                <span class="cart-count"><%=(typeof count!=='undefined')?count:""%></span>
+                            </a>
+
+                            
+                        </div><!-- End .cart-dropdown -->
+                        <% }%>
+
+
+						<% if (typeof user!=='undefined' && user!==null) { %>
+							
+							<div class="wishlist ml-4" >
+								<a href="/logout" title="Logout">
+									<div class="icon">
+										 
+									</div>
+									<p>Log out</p>
+								</a>
+							</div><!-- End .compare-dropdown -->
+							<% } else { %>
+								<div class="wishlist ml-4">
+									<a href="/login" title="Login">
+										<div class="icon">
+											 
+										</div>
+										<p>Log in</p>
+									</a>
+								</div><!-- End .compare-dropdown -->
+							<% } %> 
+                           
+                        </div><!-- End .icons-container -->
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-middle -->
+        </header><!-- End .header -->
+        <!-- <hr class="header-divider"> -->
+        <head>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+          </head>
+
+          <style>
+            .icons-container {
+                display: flex;
+                align-items: center;
+                gap: 30px; /* Adjust the value as needed */
+            }
+
+            .header-divider {
+                border-top: 1px solid #ddd;
+                 margin-top: 20px;
+                 
+            }
+
+        </style>
+        </head>
+     </div>  

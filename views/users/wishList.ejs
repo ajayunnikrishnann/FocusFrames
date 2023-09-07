@@ -1,0 +1,164 @@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+
+
+<script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="../assets/https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	 crossorigin="anonymous"></script>
+	<script src="../assets/js/vendor/bootstrap.min.js"></script>
+	<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="../assets/js/jquery.nice-select.min.js"></script>
+	<script src="../assets/js/jquery.sticky.js"></script>
+  <script src="../assets/js/nouislider.min.js"></script>
+	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="../assets/js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="../assets/js/gmaps.min.js"></script>
+	<script src="../assets/js/main.js"></script>
+
+
+
+
+
+
+
+
+<%- include('../layouts/userHeader.ejs') %>	
+
+
+<main class="main">
+    
+    <%if(wishlistProducts.length!=0) {%>
+    <div class="page-content">
+        <div class="container">
+            <table class="table table-wishlist table-mobile">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        
+                        <th>Price</th>
+                        <th>Action</th>
+                       
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% wishlistProducts.forEach(function(item) { %> 
+                    <tr>
+                        <td class="product-col">
+                            <div class="product">
+                                <figure class="product-media">
+                                    <a href="#">
+                                        <img src="../product-images/<%=item.wishListed.images[0]%>" alt="#">
+                                    </a>
+                                </figure>
+
+                                <h3 class="product-title">
+                                    <a href="/productPage?id=<%=item.wishListed._id %>"><%=item.wishListed.name%></a>
+                                </h3><!-- End .product-title -->
+                                <!-- <p><%=item.wishListed.description%></p> -->
+                                <td class="price" data-title="Price"><span>₹<%=item.wishListed.price%></span></td>
+                            </div><!-- End .product -->
+                        </td>
+                        <!-- <td class="price-col">$76.00</td>
+                        <td class="stock-col"><span class="in-stock">In stock</span></td> -->
+                        <td class="action-col">
+                            <button class="btn btn-block btn-outline-primary-2"><i class="icon-cart-plus" onclick="addtocart('<%=item.productId%>')"></i>Add to Cart</button>
+                        </td>
+                        <td class="action" data-title="Remove" onclick="removeFromWishList('<%=item.productId%>')"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                        <!-- <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td> -->
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table><!-- End .table table-wishlist -->
+            
+        </div><!-- End .container -->
+        <% }else{%>
+            <div style="display: flex; justify-content: center;">
+                <div class="col-md-lg-5">
+                    <div class="typography" style="text-align: center;">
+                        <img style="width: 295px; margin: 0 auto;" src="/assets/istockphoto-509684973-612x612.jpg" alt="empty cupboard">
+                        <h3>Oops! Your Wish List is empty</h3>
+                    </div>
+                </div>
+            </div>
+            <%  } %>
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+<link rel="stylesheet" href="../assets/css/linearicons.css">
+  <link rel="stylesheet" href="../assets/css/owl.carousel.css">
+  <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../assets/css/themify-icons.css">
+  <link rel="stylesheet" href="../assets/css/nice-select.css">
+  <link rel="stylesheet" href="../assets/css/nouislider.min.css">
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+
+<%- include('../layouts/userFooter.ejs') %>	
+
+<script>
+
+    function addtocart(proId) {
+      
+      $.ajax({
+        url: '/addToCart/' + proId,
+        method: 'POST',
+  
+        success: (response) => {
+          if (response.status==true) {
+            Swal.fire({
+              title: 'Added To Cart',
+              text: 'Your Product has been added to Cart',
+              icon: 'success',
+              timer: 5000
+            })
+            
+          }else if(response.status=='outOfStock'){
+            Swal.fire({
+              title: 'Out of Stock',
+              text: 'Product Out Of Stock',
+              icon: 'error',
+              timer: 5000
+            })
+          }else{
+			 window.location.href = '/login';
+			}
+        }
+      })
+    }
+
+  
+    // remove from wishList ajax call
+    function removeFromWishList(proId) {
+
+      event.preventDefault()
+
+      
+      $.ajax({
+        url: '/remove-product-wishlist',
+        method: 'DELETE',
+        data: {
+          proId: proId,
+          
+        },
+        success: (response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product removed from wishlist',
+            showConfirmButton: true,
+            timer: 3000
+          }).then(() => {
+            location.reload()
+          })
+        }
+      })
+    }
+   
+  </script>

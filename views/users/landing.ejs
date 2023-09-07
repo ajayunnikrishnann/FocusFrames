@@ -1,0 +1,397 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+
+molla/index-3.html  22 Nov 2019 09:55:42 GMT -->
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FocusFrames</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+     Favicon -->
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff"> -->
+    <!-- <link rel="stylesheet" href="assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css"> -->
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/jquery.countdown.css">
+    <!-- Main CSS File -->
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <!-- <link rel="stylesheet" href="assets/css/skins/skin-demo-3.css">
+    <link rel="stylesheet" href="assets/css/demos/demo-3.css"> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+    <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+         crossorigin="anonymous"></script>
+        <script src="../assets/js/vendor/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+        <script src="../assets/js/jquery.nice-select.min.js"></script>
+        <script src="../assets/js/jquery.sticky.js"></script>
+        <script src="../assets/js/nouislider.min.js"></script>
+        <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="../assets/js/owl.carousel.min.js"></script>
+        <!--gmaps Js-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+        <script src="../assets/js/gmaps.min.js"></script>
+        <script src="../assets/js/main.js"></script>
+ 
+<!-- </head>
+
+<body> -->
+    <style>
+		.tooltip-ellipsis {
+	  max-width: 200px; /* Adjust the maximum width as needed */
+	  overflow: hidden;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+	  position: relative;
+	  cursor: help;
+	}
+	
+	
+	.tooltip-ellipsis::after {
+	  content: attr(title);
+	  position: absolute;
+	  top: 100%;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  padding: 4px 8px;
+	  background-color: #000;
+	  color: #fff;
+	  border-radius: 4px;
+	  white-space: nowrap;
+	  opacity: 0;
+	  visibility: hidden;
+	  transition: opacity 0.3s;
+	}
+	
+	.tooltip-ellipsis:hover::after {
+	  opacity: 1;
+	  visibility: visible;
+	}
+	
+	</style>
+ 
+    <%- include('../layouts/userHeader.ejs') %>	
+       
+    <!-- <hr class="header-divider">
+    <style>
+        .header-divider {
+                border-top: 1px solid #fff;
+                 margin-top: 20px;
+                 
+            } -->
+    </style>
+        <main class="main"> 
+                            
+                    <div class="row" >
+                        <div class="col-lg-12 p-0">
+                             
+                                <div class="  owl-carousel  "style="width: 100%;" data-toggle="owl" data-owl-options='{
+                                        "nav": false, 
+                                        "dots": true,
+                                        "responsive": {
+                                            "768": {
+                                                "nav": true,
+                                                "dots": false
+                                            }
+                                        }
+                                    }'>
+                                    <div id="bannerSlider" class="carousel slide row    " data-ride="carousel">
+                                        <div class="carousel-inner"style="width: 100%;">
+                                            <% banner.forEach((banner, index) => { %>
+                                            <div class="carousel-item <%= index === 0 ? 'active' : '' %>"  >
+                                                <figure class="slide-image" style=" height: 513px; "  >
+                                                    <picture  >
+                                                        <!-- <source media="(max-width: 480px)" srcset="assets/images/demos/demo-3/slider/slide-1-480w.jpg"> -->
+                                                        <img src="../banner-images/<%= banner.image %>"  alt="Image Desc" style="width: 100%;  height: 513px;">
+                                                    </picture>
+                                                </figure><!-- End .slide-image -->
+
+                                                <div class="intro-content">
+                                                    <h3 class="intro-subtitle text-primary">Explore the </h3><!-- End .h3 intro-subtitle -->
+                                                    <h1 class="intro-title">
+                                                    Capture tools
+                                                    </h1><!-- End .intro-title -->
+                                                    <br>
+                                                    <div class="intro-price">
+                                                        <sup>Offer Prize:</sup>
+                                                        <span class="text-primary">
+                                                            Cameras
+                                                        </span>
+                                                    </div><!-- End .intro-price -->
+
+                                                    <a href="/shop" class="btn btn-primary btn-round">
+                                                        <span>Click Here</span>
+                                                        <i class="icon-long-arrow-right"></i>
+                                                    </a>
+                                                </div><!-- End .intro-content -->
+                                            </div><!-- End .intro-slide -->
+                                            <% }) %>
+                                        </div>
+                                    </div>
+                                </div><!-- End .intro-slider owl-carousel owl-simple -->
+                                
+                                <span class="slider-loader"></span><!-- End .slider-loader -->
+                            </div><!-- End .intro-slider-container -->
+                        </div><!-- End .col-lg-8 -->
+
+                        
+                    </div><!-- End .row -->
+                <!-- </div>End .container -->
+            </div><!-- End .intro-section -->
+
+            <div class="container featured">
+                <ul class="nav nav-pills nav-border-anim nav-big justify-content-center mb-3" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="products-featured-link" data-toggle="tab" href="#products-featured-tab" role="tab" aria-controls="products-featured-tab" aria-selected="true">Featured</a>
+                    </li>
+                    
+                </ul>
+
+                <div class="tab-content tab-content-carousel">
+                    <div class="tab-pane p-0 fade show active" id="products-featured-tab" role="tabpanel" aria-labelledby="products-featured-link">
+                        <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                            data-owl-options='{
+                                "nav": true, 
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":2
+                                    },
+                                    "600": {
+                                        "items":2
+                                    },
+                                    "992": {
+                                        "items":3
+                                    },
+                                    "1200": {
+                                        "items":4
+                                    }
+                                }
+                            }'>
+                            <% product.forEach((product) => { %>
+                                <div class="product product-2">
+                                  <figure class="product-media">
+                                    <a href="/productPage?id=<%=product._id %>">
+                                      <img src="../product-images/<%= product.images[0] %>" alt="Product image" class="product-image">
+                                    </a>
+                              
+                                    <!-- End .product-action -->
+                              
+                                    
+                                  </figure><!-- End .product-media -->
+                              
+                                  <div class="product-body">
+                                    <div class="product-cat ">
+                                      <a href="#"><%= product.category.name %></a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title tooltip-ellipsis" title="<%= product.name %>"><a href="/productPage?id=<%=product._id %>"><%= product.name %></a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                      ₹<%= product.price %>
+                                    </div><!-- End .product-price -->
+                                    <div class="ratings-container">
+                                      <div class="ratings">
+                                        <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
+                                      </div><!-- End .ratings -->
+                                      <span class="ratings-text">( 2 Reviews )</span>
+                                    </div><!-- End .rating-container -->
+                                  </div><!-- End .product-body -->
+                                </div><!-- End .product -->
+                              <% }); %>
+                              
+                            
+                        </div><!-- End .owl-carousel -->
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane p-0 fade" id="products-sale-tab" role="tabpanel" aria-labelledby="products-sale-link">
+                        <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                            data-owl-options='{
+                                "nav": true, 
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":2
+                                    },
+                                    "600": {
+                                        "items":2
+                                    },
+                                    "992": {
+                                        "items":3
+                                    },
+                                    "1200": {
+                                        "items":4
+                                    }
+                                }
+                            }'>
+                            <div class="product product-2">
+                                <figure class="product-media">
+                                    <a href="product.html">
+                                        <img src="assets/images/demos/demo-3/products/product-4.jpg" alt="Product image" class="product-image">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    </div><!-- End .product-action -->
+
+                                    
+                                </figure><!-- End .product-media -->
+
+                               
+
+                            
+                                
+                                
+                                
+                                
+            <div class="mb-7 mb-lg-11"></div><!-- End .mb-7 -->
+            <div class="icon-boxes-container mt-2 mb-2 bg-transparent">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-rocket"></i>
+                                </span>
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Free Shipping</h3><!-- End .icon-box-title -->
+                                    <p>Orders $50 or more</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-rotate-left"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Free Returns</h3><!-- End .icon-box-title -->
+                                    <p>Within 30 days</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-info-circle"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Get 20% Off 1 Item</h3><!-- End .icon-box-title -->
+                                    <p>when you sign up</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-life-ring"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">We Support</h3><!-- End .icon-box-title -->
+                                    <p>24/7 amazing services</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .icon-boxes-container -->
+
+            <div class="container">
+                <div class="cta cta-separator cta-border-image cta-half mb-0" style="background-image: url(assets/images/demos/demo-3/bg-2.jpg);">
+                    <div class="cta-border-wrapper bg-white">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="cta-wrapper cta-text text-center">
+                                    <h3 class="cta-title">Shop Social</h3><!-- End .cta-title -->
+                                    <p class="cta-desc">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. </p><!-- End .cta-desc -->
+                            
+                                    <div class="social-icons social-icons-colored justify-content-center">
+                                        <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                        <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                        <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                        <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                                        <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                    </div><!-- End .soial-icons -->
+                                </div><!-- End .cta-wrapper -->
+                            </div><!-- End .col-lg-6 -->
+
+                            <div class="col-lg-6">
+                                <div class="cta-wrapper text-center">
+                                    <h3 class="cta-title">Get the Latest Deals</h3><!-- End .cta-title -->
+                                    <p class="cta-desc">and <br>receive <span class="text-primary">$20 coupon</span> for first shopping</p><!-- End .cta-desc -->
+                            
+                                    <form action="#">
+                                        <div class="input-group">
+                                            <input type="email" class="form-control" placeholder="Enter your Email Address" aria-label="Email Adress" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary btn-rounded" type="submit"><i class="icon-long-arrow-right"></i></button>
+                                            </div><!-- .End .input-group-append -->
+                                        </div><!-- .End .input-group -->
+                                    </form>
+                                </div><!-- End .cta-wrapper -->
+                            </div><!-- End .col-lg-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .bg-white -->
+                </div><!-- End .cta -->
+            </div><!-- End .container -->
+        </main><!-- End .main -->
+
+        <%- include('../layouts/userFooter.ejs') %>	
+
+        <script>
+            // Set the interval time (in milliseconds)
+            const intervalTime = 4000; // Change this value to adjust the scrolling speed
+          
+            // Get the banner slider element
+            const bannerSlider = document.querySelector('#bannerSlider');
+          
+            // Function to scroll the slider
+            const scrollSlider = () => {
+              $('.carousel').carousel('next');
+            };
+          
+            // Start the interval to scroll the slider
+            setInterval(scrollSlider, intervalTime);
+          </script>
+
+
+<script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+ crossorigin="anonymous"></script>
+<script src="../assets/js/vendor/bootstrap.min.js"></script>
+<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+<script src="../assets/js/jquery.nice-select.min.js"></script>
+<script src="../assets/js/jquery.sticky.js"></script>
+<script src="../assets/js/nouislider.min.js"></script>
+<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+<script src="../assets/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="../assets/js/gmaps.min.js"></script>
+<script src="../assets/js/main.js"></script>
