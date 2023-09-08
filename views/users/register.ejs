@@ -148,6 +148,12 @@
 				fname.style.border = "solid 2px red";
 				return false;
 			}
+			if(fnameValue.length>=10){
+				fnameError.innerHTML = 'First Name length should be less than 10'
+				fnameError.style.color = 'red'
+				fname.style.border = "solid 2px red";
+				return false;
+			}
 
 
 			if(!fnameValue.match(nameRegex)){
